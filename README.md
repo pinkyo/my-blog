@@ -3,5 +3,7 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 
 ## 2017-11
 
-- [`Javascript`JavaScript验证输入的string的内容是不是数值](./JavaScript验证输入的string的内容是不是数值.md)
+- `Javascript`[JavaScript验证输入的string的内容是不是数值](./JavaScript验证输入的string的内容是不是数值.md)
+- `Java`|`Security`[Root证书、CA证书和使用CA签发的X.509证书](./Root证书、CA证书和使用CA签发的X.509证书.md)
+
 
