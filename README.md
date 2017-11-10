@@ -1,5 +1,5 @@
 # my-blog
-a blog list of mine, for storage and managment.
+a blog list of mine, for storage and managment. The blog is published with name [o_nikyo_o](http://blog.csdn.net/o_nikyo_o) in CSDN.
 
 ## 2017-11
 
