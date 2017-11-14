@@ -54,6 +54,7 @@ ContentSigner signer = new JcaContentSignerBuilder("SHA256withECDSA")
 
 // build x.509 certificate
 X509CertificateHolder holder = v3CertGen.build(signer);
+X509Certificate cert = new JcaX509CertificateConverter().getCertificate(holder);
 ```
 
 holder即我们生成的X.509证书，对于生成的证书我们可以使用org.bouncycastle.openssl.jcajce.JcaPEMWriter转化成字符串：
