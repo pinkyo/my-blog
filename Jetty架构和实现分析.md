@@ -28,7 +28,7 @@ Jetty的架构，可以参见[Jetty 7 Architecture](https://wiki.eclipse.org/Jet
 
 我们分析Jetty的实现，从jetty-server这个模块入手。
 
-## jetty-server分析
+### jetty-server分析
 
 从Jetty的架构可知，`Server`主要包括几个部分：
 
