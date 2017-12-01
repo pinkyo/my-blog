@@ -115,8 +115,8 @@ static class ThreadLocalMap {
 
 从ThreadLocalMap的这一小段代码中，我们可以得到几个内容：
 
-1. Entry继承WeakReference类，实际是Entry的key是WeakReference，并且从注释我们也可以知道，ThreadLocal变量只要没有外部强引用，就可以被GC，但是ThreadLocal被GC并不代表对应的value也会被马上GC，这个我们可以从后面的分析知道；
-2. Entry的Key是ThreadLocal，这个的意思是无论在我们定义多少ThreadLocal变量，实际上这些ThreadLocal变量的值都会在存储在这个Thread中的ThreadLocalMap中；
+1. ThreadLoca中的Entry类继承WeakReference类，实际是Entry的key是WeakReference，并且从注释我们也可以知道，ThreadLocal变量只要没有外部强引用，就可以被GC，但是ThreadLocal被GC并不代表对应的value也会被马上GC，这个我们可以从后面的分析知道；
+2. Entry的Key是ThreadLocal变量本身，这个的意思是无论在我们定义多少ThreadLocal变量，实际上这些ThreadLocal变量的值都会在存储在这个Thread中的ThreadLocalMap中；
 3. ThreadLocalMap中Entry的Size是从16开始，每次不足就*2这样增长的，并不像ArrayList那么聪明。
 
 好了，到此基本ThreadLocal的设计已经基本理清了，我们可以再看看ThreadLocal的几个函数印证一下我们的想法。
@@ -199,4 +199,9 @@ public T get() {
 
 ## 总结
 
-通过分析，我们可以知道，迟早的调用`java.lang.ThreadLocal#remove`可以避免很多问题，所以不要把释放对象占用的内存的事情完全交给ThreadLocal来处理。
+通过分析，我们可以知道，尽早的调用`java.lang.ThreadLocal#remove`可以避免很多问题，所以不要把释放对象占用的内存的事情完全交给
+ThreadLocalMap的逻辑来处理。
+
+## 问题
+
+从上我们可以知道，在ThreadPool中，虽然Task已经结束，但是明显Thread没有被销毁而是被“复用”了，ThreadLocalMap也就没有在Task结束的时候被回收。这个是为什么呢？其实这牵涉到ThreadPool的实现机制，可以参考[ThreadPool分析](./ThreadPool技术分析.md)。
