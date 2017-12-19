@@ -8,5 +8,6 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 - `Java`|`Jetty`[Jetty架构和实现分析](./Jetty架构和实现分析.md)
 - `java`[ThreadLocal技术分析](./ThreadLocal技术分析.md)
 - `java`[ThreadPool技术分析](./ThreadPool技术分析.md)
+- `java`[JAVA中的引用类型](./JAVA中的引用类型.md)
 
 
