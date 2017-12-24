@@ -11,15 +11,5 @@
 3. `软引用（Soft Reference）`，在Full GC也就是内存不足的时候被回收，实现类为`java.lang.ref.SoftReference`；
 4. `虚引用（Phantom Reference）`，最弱的引用，甚至无法通过虚引用取到对象，通常只用于收取被GC通知，实现类为`java.lang.ref.PhantomReference`。
 
-## 使用
 
-关于弱引用、软引用和虚引用的使用。
-
-### 弱引用的使用
-
-### 软引用的使用
-
-### 虚引用的使用
-
-## 结论
-
+这几类引用的Java代码很少，感觉就是一个简单的Tag Class，具体的处理都交给了HotSpot JVM。
