@@ -9,5 +9,4 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 - `java`[ThreadLocal技术分析](./ThreadLocal技术分析.md)
 - `java`[ThreadPool技术分析](./ThreadPool技术分析.md)
 - `java`[JAVA中的引用类型](./JAVA中的引用类型.md)
-
-
+- `Java`[《Effective Java》Review](./Effective_Java_Review.md)
