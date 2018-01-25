@@ -13,12 +13,44 @@
 ### Creating and Destroying Objects
 
 - Item 1: Consider static factory methods instead of constructors
+
+使用静态工厂函数来创建新对象有以下的好处:
+
+1. 静态工厂函数有名字，但是构造函数没有，名字可以增加代码的可读性；
+2. 静态工厂函数不像构造函数一定会创建一个新的对象，比较灵活，比如可以使用在单例模式，Immutable对象的情况；
+3. 静态工厂函数可以返回返回类型的任一子类实例；
+3. 使用静态工厂函数可以使代码更简洁；
+
+使用静态工厂函数来创建新对象有以下的坏处:
+
+1. 只有静态工厂函数，但没有public或者protected的构造函数的类不能用于继承；
+2. 静态工厂函数与其他的静态函数不能很好地区分，要区分只能依靠一些习惯的命名如valueOf、of、getInstance等来实现。
+
 - Item 2: Consider a builder when faced with many constructor parameters
+
+参数很多的情况可以考虑使用builder模式，在参数中，我们可以把必填的参数放在builder的构造函数的参数中，其他实现单独的setter方法。
+
 - Item 3: Enforce the singleton property with a private constructor or an enum type
+
+单例使用会使测试变得困难，因为单例对象很难mock出来，除非有实现其他的interface.
+单元素的Enum类型是实现单例最好的方法。
+
 - Item 4: Enforce noninstantiability with a private constructor
+
+工具类只能有私有构造函数，不要让它可以实例化。
+
 - Item 5: Avoid creating unnecessary objects
+
+不能创建没用的对象，因为会影响性能。在一般情况下，优先使用primitives，而不是boxed primitives，小心不必要的autoboxing。
+不能在使用过程中，我发现偶尔会出现参数optional的情况，这个时候感觉boxed primitives还是可以用的。
+
 - Item 6: Eliminate obsolete object references
+
+废弃的引用要及时置为null，不然会有内存泄漏的风险，比如数组对象，caches, listeners，callbacks等情况。
+
 - Item 7: Avoid finalizers
+
+Finalizer函数不安全，不可预见，一般来说也没有必要，还会影响性能。`不要使用！`
 
 ### Methods Common to All Objects
 
