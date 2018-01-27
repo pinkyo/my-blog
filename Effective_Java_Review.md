@@ -19,7 +19,7 @@
 1. 静态工厂函数有名字，但是构造函数没有，名字可以增加代码的可读性；
 2. 静态工厂函数不像构造函数一定会创建一个新的对象，比较灵活，比如可以使用在单例模式，Immutable对象的情况；
 3. 静态工厂函数可以返回返回类型的任一子类实例；
-3. 使用静态工厂函数可以使代码更简洁；
+4. 使用静态工厂函数可以使代码更简洁；
 
 使用静态工厂函数来创建新对象有以下的坏处:
 
@@ -55,16 +55,73 @@ Finalizer函数不安全，不可预见，一般来说也没有必要，还会�
 ### Methods Common to All Objects
 
 - Item 8: Obey the general contract when overriding equals
+
+以下情况不要override equals函数：
+
+1. 类的实例本来就是独一无二的；
+2. 你不关心是否“逻辑相等”；
+3. 超类已经override equals函数，而且仍然适用；
+4. private类或package-private类，而且你确定equals函数不会被调用。
+
+override equals函数有如下协定：
+
+1. 自反性，X.equals(X)要恒为true;
+2. 对称性，X.equals(Y)为true,当且仅当Y.equals(X)为true;
+3. 传递性，如果X.equals(Y)为true并且Y.equals(X)为御前,则X.equals(Z)为true;
+4. 一致性，X.equals(Y)只能一直为true或flase，不能一会儿为true，一会儿为false；
+5. 对任意的非null引用X, X.equals(null)必须返回false。
+
+尽量不要违反这些协定，不然你没法预测其行为。在override equals函数的时候也不要画蛇添足与超类的逻辑做比较，因为把超类作为逻辑比较的对象，肯定会违反协定，比如对称性。
+
+总而言之，按如下方法可以override一个高质量的equals函数：
+
+1. 使用==操作符来判断参数是指向本对象；
+2. 使用instanceof来判断类型是不是相同；
+3. 把参数从Object转成正确的类型;
+4. 逻辑检查,看重要的字段是否相等；
+5. 检查是否满足如上的协定。是否自反？是否对称？
+
+还有几个要注意的东西：
+
+1. 在override equals的时候记得override hashCode函数（Item 9）, 不然在使用hash的Collection会表现很奇怪，比如HashSet中；
+2. 不要自作聪明，做在equals不应该做的事情;
+3. 不要overloading equals函数。
+
+在现代IDE,比如Intellij Idea中，一般都内置了equals的模板，可以快速的overide equals函数。
+
 - Item 9: Always override hashCode when you override equals
+
+在override equals的类中也要override hashCode函数，一般情况，如果两个equal对象的hashCode也要相等。
+hashCode在现代IDE中一般也有模板可以使用。
+
 - Item 10: Always override toString
+
+提供一个好的toString实现可能使你的函数更好用，最佳的实践是在toString的返回值应该包括对象的所有重要信息，而且如果有特别的格式应该在toString函数的注释中说明。
+
 - Item 11: Override clone judiciously
+
+clone函数的坑太多，最好不要使用，可以使用copy constructor或者copy factory method来代替。
+
 - Item 12: Consider implementing Comparable
+
+如果要对象使用sort一类的函数，就要记得实现Comparable。
 
 ### Classes and Interfaces
 
 - Item 13: Minimize the accessibility of classes and members
+
+最小特权原则(Least Privilege)。
+class的field应该都为private，因为有非私有field的class一定不是线程安全的，然而使用起来也有很多问题。
+class不应该包含public的静态array，哪怕已经定义为final，因为array的对象可以被修改，使用起来会有安全风险。
+
 - Item 14: In public classes, use accessor methods, not public fields
+
+使用accessor方法包括getter和setter，不要直接访问field，因为这样不是线程安全的，而且很难保证field的值是有效的，两种情况都会造成state不可用。
+
 - Item 15: Minimize mutability
+
+如果可以的话，尽量使用Immutable对象，因为这样的话会避免很多问题，如线程安全等。不过在内存资源受限的应用中，要谨慎使用，因为Immutable不同的值一定不是同一个对象，会生成很多多余的对象。
+
 - Item 16: Favor composition over inheritance
 - Item 17: Design and document for inheritance or else prohibit it
 - Item 18: Prefer interfaces to abstract classes
