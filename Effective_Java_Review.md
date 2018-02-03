@@ -134,9 +134,14 @@ class不应该包含public的静态array，哪怕已经定义为final，因为ar
 
 - Item 18: Prefer interfaces to abstract classes
 
-
+因为可以同时实现多个interface，所以使用interface可以安全、灵活的扩展功能。
+Abstract class比interface更容易演进，要增加一个方法，只要在abstract class中加一个默认函数实现就可以了，这是abstract class的一个优点。
+小心定义公有interface，一旦interface发布出去，并且被大量实现，就几乎不可能更改。
 
 - Item 19: Use interfaces only to define types
+
+interface可以用来定义常量，但是这种使用方式不提倡。一般来说，interface只用来定义类型。
+
 - Item 20: Prefer class hierarchies to tagged classes
 - Item 21: Use function objects to represent strategies
 - Item 22: Favor static member classes over nonstatic
