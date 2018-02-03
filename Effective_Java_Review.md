@@ -123,8 +123,19 @@ class不应该包含public的静态array，哪怕已经定义为final，因为ar
 如果可以的话，尽量使用Immutable对象，因为这样的话会避免很多问题，如线程安全等。不过在内存资源受限的应用中，要谨慎使用，因为Immutable不同的值一定不是同一个对象，会生成很多多余的对象。
 
 - Item 16: Favor composition over inheritance
+
+继承会破坏封装，不仅会继承不需要的方法。而且如果有公有方法之间的相互调用，如果被调用的方法被覆盖会使得原有方法的行为无法预测。组装相对安全，使用起来灵活。
+
 - Item 17: Design and document for inheritance or else prohibit it
+
+测试用于继承的类的方法是写子类。
+构造函数不要调用可以重写的（overridable）方法，因为出现不可预测的行为。
+最好的解决方案是禁止继承不是设计用于继承的类。
+
 - Item 18: Prefer interfaces to abstract classes
+
+
+
 - Item 19: Use interfaces only to define types
 - Item 20: Prefer class hierarchies to tagged classes
 - Item 21: Use function objects to represent strategies
