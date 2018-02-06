@@ -143,17 +143,45 @@ Abstract class比interface更容易演进，要增加一个方法，只要在abs
 interface可以用来定义常量，但是这种使用方式不提倡。一般来说，interface只用来定义类型。
 
 - Item 20: Prefer class hierarchies to tagged classes
+
+有的时候，我们会用一个字段来区分不同类型的对象，这些对象对应的类就是tagged class。
+tagged class在使用和扩展性上有很多缺点，而且效率相对低。在语义上，tagged class与类别继承体系相似。
+但是相对而言，类别继承体系没有上面tagged class的缺陷。因此，我们应该使用类别继承体系来代替tagged class。
+
 - Item 21: Use function objects to represent strategies
+
+我们可以定义只有一个函数的interface代表策略，然后具体实现，把策略相关内容与通用的逻辑分离，实现代码重用，增加代码的可读性。
+
 - Item 22: Favor static member classes over nonstatic
+
+如果你定义一个成员类不需要访问它的包含类，一定记得把这个成员类置为static。
 
 ### Generics
 
 - Item 23: Don’t use raw types in new code
+
+不要使用raw types在新的代码中，因为这样做编译时不做进行类型检查，从而造成runtime error。
+
 - Item 24: Eliminate unchecked warning
+
+尽量消除每一个unchecked warning。
+如果不能消除，在确认类型安全的前提下，使用@SuppressWarninggs来忽略waring，尽量在小的范围内使用这个annotation，并且在每个使用的地方都注释说明为什么是肉类安全的。
+
 - Item 25: Prefer lists to arrays
+
+array是covariant and reified，而范型Collection是invariant and erased，两者不可以混用，如果出现混用的话，优先考虑全部换成范型Collection。
+
 - Item 26: Favor generic types
+
+相对于Object，优先使用范型，这样可以更好地保证类型安全。
+
 - Item 27: Favor generic methods
+
+与Item 26相似。
+
 - Item 28: Use bounded wildcards to increase API flexibility
+
+
 - Item 29: Consider typesafe heterogeneous containers
 
 ### Enums and Annotations
