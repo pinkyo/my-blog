@@ -181,12 +181,19 @@ array是covariant and reified，而范型Collection是invariant and erased，两
 
 - Item 28: Use bounded wildcards to increase API flexibility
 
+为了最大的灵活性，只在入参中使用bounded wildcards来代表生产者或者是消费者。
+PECS表示在生产者-extends，消费者-super。
+不要使用wildcard类型作为返回值。
+如果使用函数时需要考虑Wildcard入参的具体类型，那么wildcard使用一定有问题。
+如果一个类型参数在函数定义中只出现一次，把这个类型参数换成wildcard。
 
 - Item 29: Consider typesafe heterogeneous containers
 
 ### Enums and Annotations
 
 - Item 30: Use enums instead of int constants
+
+
 - Item 31: Use instance fields instead of ordinals
 - Item 32: Use EnumSet instead of bit fields
 - Item 33: Use EnumMap instead of ordinal indexing.
