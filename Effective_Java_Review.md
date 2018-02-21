@@ -193,14 +193,37 @@ PECS表示在生产者-extends，消费者-super。
 
 - Item 30: Use enums instead of int constants
 
+为了将enum常量和数据关联起来，可以定义成员变量并写一个构造器将数据存入成员变量。
+将int常量转换到enum方便扩展常量相关的行为，因为在enum可以定义函数。
 
 - Item 31: Use instance fields instead of ordinals
+
+不要直接使用ordinal值，应该把相应的值存到成员变量，使用ordinal值会有代码可读性和维护性的问题。
+
 - Item 32: Use EnumSet instead of bit fields
+
+因为enum类型可以在Set中使用，不要使用bit fields来表示。使用bit fields是C/C++中常用的方式，但是可读性相对差。
+
 - Item 33: Use EnumMap instead of ordinal indexing.
+
+使用ordinal来index数组很少是合适的，应该使用EnumMap。
+
 - Item 34: Emulate extensible enums with interfaces
+
+虽然我们不能继承enum类型，但是我们可以让enum类型继承interface来实现扩展性。
+
 - Item 35: Prefer annotations to naming patterns
+
+不要再使用命名模式来指定特定的行为，而是应该使用annotation，这样代码更具灵活性和维护性。
+
 - Item 36: Consistently use the Override annotation.
+
+在每个你想覆盖的方法上加上@Override，这样可以避免错误。
+
 - Item 37: Use marker interfaces to define types
+
+相对marker annotations，marker interfaces定义了一种类型。
+如果你正在写一个target是ElementType.TYPE的marker annotations，花点儿时间考虑一下是否合适，是不是应该换成marker interfaces。
 
 ### Methods
 
