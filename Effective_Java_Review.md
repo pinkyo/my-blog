@@ -218,7 +218,33 @@ interface可以用来定义常量，但是这种使用方式不提倡。一般�
 ### Serialization
 
 - Item 74: Implement Serializable judiciously.
+
+实现Serializable的缺点
+
+1. 减少了发布后改变类的实现灵活性，一个类实现Serializable，则这它有的子类也会实现Serializable，而实现Serializable可能会破坏封装。
+2. 增加了Bug和安全漏洞的可能性。
+3. 增加了测试的负担，因为必须保证新版本的类和旧的版本的兼容。
+
+决定是否实现Serializable要谨慎，设计为可以继承的Class尽量不要实现Serializable，interface也不要继承Serializable。
+Inner Class也不要实现Serializable，static member class可以。
+
 - Item 75: Consider using a custom serialized form
+
+不要在没有考虑是否合适的情况下直接使用默认的序列化格式，默认序列化格式只有在逻辑内容和物理内容一样的时候才合适。即使使用默认的序列化格式也要提供readObject函数保证非协变和安全性。
+
+在逻辑内容和物理内容不相同的情况下使用默认的序列格式有以下四个缺陷:
+
+1. 对外的API和内部的实现永远有绑在一起。
+2. 浪费空间。
+3. 浪费时间。
+4. 会造成stackOverflow。
+
+不管使用哪种序列化的方式，都要定义一个UID来进行版本的管理。
+
 - Item 76: Write readObject methods defensively
+
+当反序列化一个对象时，要保证做了defensive copy和包含的引用不被其他对象拥有。
+不要使用readUnshared和writeUnshared方法。
+
 - Item 77: For instance control, prefer enum types to readResolve
 - Item 78: Consider serialization proxies instead of serialized instances
