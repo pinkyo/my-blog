@@ -28,12 +28,12 @@
 
 - Item 2: Consider a builder when faced with many constructor parameters
 
-参数很多的情况可以考虑使用builder模式，在参数中，我们可以把必填的参数放在builder的构造函数的参数中，其他实现单独的setter方法。
+参数很多的情况可以考虑使用builder模式，在参数中，我们可以把必填的参数放在builder的构造函数的参数中，其他实现单独的setter函数。
 
 - Item 3: Enforce the singleton property with a private constructor or an enum type
 
 单例使用会使测试变得困难，因为单例对象很难mock出来，除非有实现其他的interface.
-单元素的Enum类型是实现单例最好的方法。
+单元素的Enum类型是实现单例最好的函数。
 
 - Item 4: Enforce noninstantiability with a private constructor
 
@@ -116,7 +116,7 @@ class不应该包含public的静态array，哪怕已经定义为final，因为ar
 
 - Item 14: In public classes, use accessor methods, not public fields
 
-使用accessor方法包括getter和setter，不要直接访问field，因为这样不是线程安全的，而且很难保证field的值是有效的，两种情况都会造成state不可用。
+使用accessor函数包括getter和setter，不要直接访问field，因为这样不是线程安全的，而且很难保证field的值是有效的，两种情况都会造成state不可用。
 
 - Item 15: Minimize mutability
 
@@ -124,18 +124,18 @@ class不应该包含public的静态array，哪怕已经定义为final，因为ar
 
 - Item 16: Favor composition over inheritance
 
-继承会破坏封装，不仅会继承不需要的方法。而且如果有公有方法之间的相互调用，如果被调用的方法被覆盖会使得原有方法的行为无法预测。组装相对安全，使用起来灵活。
+继承会破坏封装，不仅会继承不需要的函数。而且如果有公有函数之间的相互调用，如果被调用的函数被覆盖会使得原有函数的行为无法预测。组装相对安全，使用起来灵活。
 
 - Item 17: Design and document for inheritance or else prohibit it
 
 测试用于继承的类的方法是写子类。
-构造函数不要调用可以重写的（overridable）方法，因为出现不可预测的行为。
+构造函数不要调用可以重写的（overridable）函数，因为出现不可预测的行为。
 最好的解决方案是禁止继承不是设计用于继承的类。
 
 - Item 18: Prefer interfaces to abstract classes
 
 因为可以同时实现多个interface，所以使用interface可以安全、灵活的扩展功能。
-Abstract class比interface更容易演进，要增加一个方法，只要在abstract class中加一个默认函数实现就可以了，这是abstract class的一个优点。
+Abstract class比interface更容易演进，要增加一个函数，只要在abstract class中加一个默认函数实现就可以了，这是abstract class的一个优点。
 小心定义公有interface，一旦interface发布出去，并且被大量实现，就几乎不可能更改。
 
 - Item 19: Use interfaces only to define types
@@ -218,7 +218,7 @@ PECS表示在生产者-extends，消费者-super。
 
 - Item 36: Consistently use the Override annotation.
 
-在每个你想覆盖的方法上加上@Override，这样可以避免错误。
+在每个你想覆盖的函数上加上@Override，这样可以避免错误。
 
 - Item 37: Use marker interfaces to define types
 
@@ -228,17 +228,65 @@ PECS表示在生产者-extends，消费者-super。
 ### Methods
 
 - Item 38: Check parameters for validity
+
+在每个函数的开头检查参数的合法性，对不合法的参数抛出相应的异常，然后再进行逻辑操作和计算。
+
 - Item 39: Make defensive copies when needed
+
+在编写函数的时候要考虑全面，保证函数安全性。对于immutable object，要在contructor函数中对可变的参数做defensive copy以保证其不能修改。defensive copy在检查参数的合法性之前进行，合法性检查是对copy而不是原参数进行。
+不要使用clone函数来进行defensive copy，特别是不可信Class的子类的参数。
+对于不可修改类型的函数的返回值，如果是可以修改的，返回其defensive copy来维持不可修改性。
+
 - Item 40: Design method signatures carefully
+
+1. 小心选择函数名；
+2. 不要写过多函数，只将经常使用的逻辑抽成函数。如果没想好，就保持原状；
+3. 避免参数过多，过多类型相同的参数尤其有害。
+
+减少方法参数的方法有：
+
+1. 将方法拆成多个；
+2. 写helper class将参数放在一个类里；
+3. 使用Builder模式。
+
+对于参数的类型，interface好过class，两个元素的enum类型好过boolean类型。
+
 - Item 41: Use overloading judiciously
+
+选择调用哪个重载的函数是在编译里确定的，对重载函数的选择是静态的，对覆盖函数的选择是动态的。
+应该避免使用带有迷惑性的重载函数，最好不要编写参数数量相同的重载函数。
+
 - Item 42: Use varargs judiciously
+
+不要把每个函数的参数都变成final array参数；
+在对可变长参数真正进行调用的函数中使用varargs。
+
 - Item 43: Return empty arrays or collections, not nulls
+
+没理由在返回值是数组或集合的函数返回null值，应该使用空数组或空集合。这样做减少了不必要的判断条件，代码更简洁。
+
 - Item 44: Write doc comments for all exposed API elements
+
+对要发布的API要在代码中写好注释，然后使用工具自动生成注释文件方便使用。
 
 ### General Programming
 
 - Item 45: Minimize the scope of local variables
+
+在第一次使用的地方定义变量；
+几乎每个局部变量的定义时都应该指定一个初始值，try catch等少数情况有特例；
+相对于while循环，更应该使用for循环；
+保持函数小而专注，每个函数只处理一种行为。
+
 - Item 46: Prefer for-each loops to traditional for loops
+
+一般来说，相对于for循环，优先使用for-each循环。
+有三种情况不能使用for-each循环：
+
+1. 过滤，会删除一些元素；
+2. 变换，会替换元素；
+3. 交行遍历。
+
 - Item 47: Know and use the libraries
 - Item 48: Avoid float and double if exact answers are required
 - Item 49: Prefer primitive types to boxed primitives
@@ -302,7 +350,7 @@ Inner Class也不要实现Serializable，static member class可以。
 - Item 76: Write readObject methods defensively
 
 当反序列化一个对象时，要保证做了defensive copy和包含的引用不被其他对象拥有。
-不要使用readUnshared和writeUnshared方法。
+不要使用readUnshared和writeUnshared函数。
 
 - Item 77: For instance control, prefer enum types to readResolve
 - Item 78: Consider serialization proxies instead of serialized instances
