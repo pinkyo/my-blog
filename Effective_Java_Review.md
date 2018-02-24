@@ -288,23 +288,83 @@ PECS表示在生产者-extends，消费者-super。
 3. 交行遍历。
 
 - Item 47: Know and use the libraries
+
+1. 通过使用标准库，你可以利用来自编写标准库的专家的知识和以往使用者的使用经验；
+2. 不需要再花时间造轮子，可以专注业务开发；
+3. 随着时间，标准库的性能和可用性会改善，还会增加一些实用的新功能，不需要自己花时间去维护；
+4. 使用标准库，会使你的代码成为主流，可以被大多数开发者阅读、维护和重用。
+
+依赖库的主要Release版本会有大量的新特性，我们要花时间会跟进。
+每个开发者者应该熟悉java.lang，java.util的内容，一定程度上熟悉java.io。
+
 - Item 48: Avoid float and double if exact answers are required
+
+float和double特别不适合计算钱的应用，正确的做法是使用BigDecimal，int或者long。
+总之，不要在需要精确结果的计算中使用float或double。
+
 - Item 49: Prefer primitive types to boxed primitives
+
+在boxed primitives中使用==操作符几乎是有问题的。
+Primitive类型和boxed primitives的混用的时候，boxed primitives自动unboxed，这个过程可能会有NullException。
+Autoboxing简化使用boxed primitives的代码，但其风险并没有减少。
+
 - Item 50: Avoid strings where other types are more appropriate
+
+不要用string来表示其他类型的值，也不要依赖string来实现区别、限制的功能。
+
 - Item 51: Beware the performance of string concatenation
+
+在有大量string连接操作的进修，不要使用“+”操作，而是要使用StringBuilder的append函数实现。
+
 - Item 52: Refer to objects by their interfaces
+
+面向interface编程，但是如果没有或找不到合适的interface，也可以直接使用class。
+
 - Item 53: Prefer interfaces to reflection
+
+反射的缺点：
+
+1. 失去了编译时类型检查的好处；
+2. 代码会变得冗长和繁琐；
+3. 性能下降。
+
+一般程序不应该在运行时使用反射来访问对象。
+如果需要实现运行时加载，可以使用反射。
+
 - Item 54: Use native methods judiciously.
+
+不建议为了提高性能使用native函数。
+在使用native函数之前要反复考虑清楚。如果一定要使用，也尽量少用并且进行全面测试，native代码中的一个小bug也可能毁掉你的整个应用。
+
 - Item 55: Optimize judiciously
+
+坚持写好的程序而不是快的。
+在设计的时间要避免做会限制性能的决定，考虑你的API设计决定的性能后果。
+好的API设计一般会有好的性能，不要为了性能把API变得不合理。
+在每次优化的前后都要测试性能。
+
 - Item 56: Adhere to generally accepted naming conventions
 
 ### Exceptions
 
 - Item 57: Use exceptions only for exceptional conditions
+
+Exception，如名字所指，只应该在异常的情况下使用，不应该在正常的控制流中使用。
+一个设计良好的API肯定不会强迫它的使用者在正常的控制流中使用异常。
+
 - Item 58: Use checked exceptions for recoverable conditions and runtime exceptions for programming errors
+
+所有unchecked exception都应该是RuntimException的子类。
+
 - Item 59: Avoid unnecessary use of checked exceptions
+
+如果可以使用判断条件去去掉checked exception的，优先使用判断。
+另一个把checked exception变成unchecked exception的方法是重抛exception。
+
 - Item 60: Favor the use of standard exceptions.
 - Item 61: Throw exceptions appropriate to the abstraction.
+
+
 - Item 62: Document all exceptions thrown by each method.
 - Item 63: Include failure-capture information in detail messages
 - Item 64: Strive for failure atomicity
