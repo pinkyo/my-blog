@@ -364,22 +364,75 @@ Exception，如名字所指，只应该在异常的情况下使用，不应该�
 - Item 60: Favor the use of standard exceptions.
 - Item 61: Throw exceptions appropriate to the abstraction.
 
+上层的代码应该catch来自底层的exception，然后throw一个与上层抽象相符合的exception。
+虽然重抛异常好过无脑地传递来自底层的异常，但是也不要滥用。最好的办法还是避免不必要的异常出现，如果避免不了还可以在上层代码立即处理异常，并把异常打到上日志里。
 
 - Item 62: Document all exceptions thrown by each method.
+
+将你抛出的每个异常都用@throws加上注释，不管是checked还是unchecked。
+
 - Item 63: Include failure-capture information in detail messages
+
+异常的errorMessage信息写的详细准确点，方便定位问题。
+
 - Item 64: Strive for failure atomicity
+
+一般来说，对象的某个函数调用失败，对象在调用后的状态应该与在调用前的相同。
+有几方法实现：
+
+1. 使用Immutable对象；
+2. 正确安排计算的顺序；
+3. 写恢复代码处理失败的情况；
+4. 将函数作用于原对象的一个copy上，调用成功替换掉原对象。
+
 - Item 65: Don’t ignore exceptions
+
+空的catch代码会让异常失去应用的作用。一般不要忽略异常，如果一定要这么做，要在注释中写清楚原因。
 
 ### Concurrency
 
 - Item 66: Synchronize access to shared mutable data.
+
+可信的线程通信和互斥需要同步的存在。
+不要使用Thread.stop。
+同步只有在读写函数都已经同步的情况下才会起到应有的作用。
+限制可变的对象只在一条的线程中使用。如果有多条线程分享可变的数据，数据的读写函数都要实现同步。
+
 - Item 67: Avoid excessive synchronization
+
+为了避免线程活性和安全性的失败，在一个同步的函数或代码块中不要把控制权交给使用者。换句话说就是，不要在同步的函数或代码块中调用可以被覆盖的方法。一定要这样做可以使用CopyOnWriteArrayList或自己做denfensive copy的方式实现。
+作为一个规则，你应该在synchnized内尽量少做事情。
+
+
 - Item 68: Prefer executors and tasks to threads.
 - Item 69: Prefer concurrency utilities to wait and notify.
+
+因为很难正确使用wait和notify，应该使用上层的并发工具代替。
+相对于Collections.synchronizedMap或Hashtable，应该使用ConcurrentHashMap。
+用于并发计时，System.nanoTime优于System.currentTimeMillis
+新的代码不应该再使用wait和notify。
+
 - Item 70: Document thread safety
+
+synchronized描述符应该出现在实现中，而不是对外发布的API中。
+
 - Item 71: Use lazy initialization judiciously
+
+在大多数情况下，正常初始化优于懒初始化。
+如果你要使用懒初始化打破初始化循环，使用一个synchronized accessor。
+如果为了静态变量的性能需要使用懒初始化，使用lazy initialization holder class idiom。
+如果为了成员变量的性能需要使用懒初始化，使用double-check idiom。
+如果成员变量可以接受反复初始化，也要考虑使用single-check idiom。
+
 - Item 72: Don’t depend on the thread scheduler
+
+任何为了正确性和性能而依赖线程调度器的应用都很有可以是不可移植的。
+线程如果不做有用的工件就不应该运行。在执行框架方面，要合理设置的线程池大小，让任务合理地小并且相互独立。任务也不能太小，过度切换线程会影响性能。
+不要使用Thread.yield，不要依赖线程的优先级。
+
 - Item 73: Avoid thread groups
+
+thread groups已经被废弃了，可以使用线程池来替换。
 
 ### Serialization
 
