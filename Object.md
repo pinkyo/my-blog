@@ -244,7 +244,7 @@ created, and may be assigned to variables of type Object
 
 看注释的意思是在wait的时候会暂时将对象的monitor释放掉，notify方法会唤醒线程，让它重新去获取monitor,在获取成功之前不会继续执行。
 
-5.notifyAll
+5. notifyAll
 
 ```java
     /**
@@ -740,6 +740,6 @@ Thread.sleep()和wait有什么区别？
 从Thread.sleep的方法的注释知道:
 
 - sleep不会释放任何的monitor,但前面我们已经知道wait会释放自己的monitor；
-- sleep会根据系统的计时器和调试器来自动唤醒线程，而wait不会；
+- sleep会根据系统的计时器和调试器来自动唤醒线程，而wait不会。
 
 不过从上面，也可以看到，这两个方法都是调用native的库的来实现，对于线程调度这样的事情也只能这么做。
