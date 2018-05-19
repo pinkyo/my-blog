@@ -25,3 +25,4 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 ## 2018-05
 
 - `Java`[Object类](./Object.md)
+- `Java`[快速排序](./q_sort.md)
