@@ -10,7 +10,7 @@
 
 不说这么多，直接上代码：
 
-~~~java
+```java
 public class QSort {
 
     public static <T extends Comparable> void sort(T[] elements) {
@@ -29,13 +29,13 @@ public class QSort {
         // 下文
     }
 }
-~~~
+```
 
 对于partition的实现，我参考了两种方式：
 
 方式1：
 
-~~~ java
+``` java
     private static <T extends Comparable> int partition(T[] elements, int left, int right) {
         T pivot = elements[left];
         while (left < right) {
@@ -54,11 +54,11 @@ public class QSort {
 
         return left;
     }
-~~~
+```
 
 方式2：
 
-~~~java
+```java
     private static <T extends Comparable> int partition(T[] elements, int left, int right) {
         T pivot = elements[left];
         int i = left + 1;
@@ -75,11 +75,11 @@ public class QSort {
 
         return i - 1;
     }
-~~~
+```
 
 然后我使用了一个方法简单地作也对比：
 
-~~~java
+```java
         List<Integer> sample = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 1000000; i++) {
@@ -104,7 +104,7 @@ public class QSort {
         QSort.sort(array2); //使用方法1Partition
         end = System.nanoTime();
         System.out.println("P1 Time Used: " + (end - start) / 1000);
-~~~
+```
 
 ## 结论
 
