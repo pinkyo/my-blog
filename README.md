@@ -30,3 +30,4 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 ## 2018-06
 
 - `Java` [Java中的常用的代理实现方式](./proxy.md)
+- `Others` [几点个人信息安全感受](./security.md)
