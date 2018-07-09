@@ -20,7 +20,7 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 
 ## 2018-02
 
-- `Docker`|`linux`[Docker env](./docker_issue.md)
+- `Docker`|`linux` [Docker env](./docker_issue.md)
 
 ## 2018-05
 
@@ -34,4 +34,4 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 
 ## 2018-07
 
-- `Java`[在Spring-boot项目中自定一个Validation Annotaion]
+- `Java` [在Spring-boot项目中自定一个Validation Annotaion](./customize_validation.md)
