@@ -24,14 +24,6 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 
 ## 2018-05
 
-<<<<<<< HEAD
-- `Java`[Object类](./Object.md)
-- `Java`[快速排序](./q_sort.md)
-
-## 2018-07
-
-- `Java`[在Spring-boot项目中自定一个Validation Annotaion](./customize_validation.md)
-=======
 - `Java` [Object类](./Object.md)
 - `Java` [快速排序](./q_sort.md)
 
@@ -39,4 +31,7 @@ a blog list of mine, for storage and managment. The blogs are published with nam
 
 - `Java` [Java中的常用的代理实现方式](./proxy.md)
 - `Others` [几点个人信息安全感受](./security.md)
->>>>>>> 79f8e128b3abc79ac871ac56660c95a9ad568115
+
+## 2018-07
+
+- `Java`[在Spring-boot项目中自定一个Validation Annotaion]
